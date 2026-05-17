@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bunzo Burger — Smash It. Taste It. Love It.</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cairo:wght@400;600;700;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D32F2F;
+    --red-dark: #9A1212;
+    --red-light: #FF5252;
+    --black: #0D0D0D;
+    --charcoal: #1A1A1A;
+    --card-bg: #1E1E1E;
+    --gold: #F5A623;
+    --gold-light: #FFD166;
+    --white: #FAFAFA;
+    --gray: #888;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Cairo', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 4%;
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    color: var(--red);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase;
+  }
+  .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-order-btn {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;
+    background: var(--red); color: var(--white);
+    border: none; padding: 0.6rem 1.4rem; cursor: pointer;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: background 0.2s;
+  }
+  .nav-order-btn:hover { background: var(--red-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 4% 4rem;
+    background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(211,47,47,0.18) 0%, transparent 70%),
+                var(--black);
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.75rem; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(5rem, 15vw, 11rem);
+    line-height: 0.9;
+    letter-spacing: 4px;
+    color: var(--white);
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero-title .red { color: var(--red); }
+  .hero-tagline {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+    letter-spacing: 6px; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin: 1.5rem 0 2.5rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-tagline span { color: var(--gold); }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+  .btn-primary {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase;
+    background: var(--red); color: var(--white);
+    border: none; padding: 1rem 2.5rem; cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--red-light); transform: translateY(-2px); }
+  .btn-outline {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase;
+    background: transparent; color: var(--white);
+    border: 1px solid rgba(255,255,255,0.3); padding: 1rem 2.5rem; cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: border-color 0.2s, color 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-scroll {
+    margin-top: 4rem;
+    color: rgba(255,255,255,0.3);
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+  .scroll-line {
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+    animation: scrollPulse 1.8s ease-in-out infinite;
+  }
+
+  /* STATS STRIP */
+  .stats-strip {
+    background: var(--red);
+    padding: 1.2rem 4%;
+    display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
+    overflow: hidden;
+  }
+  .stat-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-family: 'Oswald', sans-serif;
+  }
+  .stat-num {
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--white);
+  }
+  .stat-label {
+    font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
+  }
+  .stat-div {
+    width: 1px; height: 40px;
+    background: rgba(255,255,255,0.3);
+  }
+
+  /* SECTION BASE */
+  section { padding: 6rem 4%; }
+  .section-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    letter-spacing: 3px;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  /* MENU SECTION */
+  .menu-section {
+    background: var(--charcoal);
+    position: relative; overflow: hidden;
+  }
+  .menu-section::before {
+    content: 'MENU';
+    position: absolute; right: -2%; top: 50%; transform: translateY(-50%);
+    font-family: 'Bebas Neue', cursive;
+    font-size: 18rem; color: rgba(255,255,255,0.025);
+    pointer-events: none; user-select: none; line-height: 1;
+  }
+  .menu-header { max-width: 600px; margin-bottom: 3rem; }
+  .menu-header p {
+    color: rgba(255,255,255,0.5);
+    font-size: 1rem; line-height: 1.7;
+  }
+
+  .menu-tabs {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+  .tab-btn {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;
+    background: transparent; color: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem 1.2rem;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .tab-btn.active, .tab-btn:hover {
+    background: var(--red); color: var(--white);
+    border-color: var(--red);
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .menu-card {
+    background: var(--card-bg);
+    padding: 1.8rem;
+    position: relative;
+    transition: background 0.2s;
+    display: none;
+  }
+  .menu-card.visible { display: block; }
+  .menu-card:hover { background: #252525; }
+  .menu-card-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 0.6rem;
+  }
+  .menu-card-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem; font-weight: 600; letter-spacing: 1px;
+    color: var(--white); text-transform: uppercase;
+    flex: 1; padding-left: 1rem;
+  }
+  .menu-card-price {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.6rem; letter-spacing: 1px;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  .menu-card-price span {
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.7rem; color: rgba(245,166,35,0.6);
+    vertical-align: middle;
+  }
+  .menu-card-desc {
+    font-size: 0.85rem; line-height: 1.6;
+    color: rgba(255,255,255,0.45);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 0.8rem; margin-top: 0.4rem;
+  }
+  .menu-badge {
+    position: absolute; top: 1rem; left: 1rem;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase;
+    background: var(--red); color: var(--white);
+    padding: 0.2rem 0.5rem;
+  }
+
+  /* EXTRAS GRID */
+  .extras-section { background: var(--black); }
+  .extras-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.05);
+    margin-top: 2.5rem;
+  }
+  .extra-card {
+    background: var(--card-bg);
+    padding: 1.4rem 1rem;
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .extra-card:hover { background: #252525; }
+  .extra-icon {
+    font-size: 1.8rem; margin-bottom: 0.5rem;
+  }
+  .extra-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--white); margin-bottom: 0.3rem;
+  }
+  .extra-price {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.3rem; color: var(--gold);
+  }
+
+  /* WHY US */
+  .why-section {
+    background: var(--charcoal);
+    position: relative; overflow: hidden;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .feature-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.04);
+    padding: 2rem 1.5rem;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px; background: var(--red);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .feature-card:hover::before { transform: scaleX(1); }
+  .feature-card:hover { border-color: rgba(211,47,47,0.2); }
+  .feature-icon {
+    font-size: 2rem; margin-bottom: 1rem;
+  }
+  .feature-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--white); margin-bottom: 0.5rem;
+  }
+  .feature-desc {
+    font-size: 0.85rem; line-height: 1.6;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* CONTACT / ORDER */
+  .order-section {
+    background: var(--red);
+    text-align: center;
+    padding: 6rem 4%;
+    position: relative; overflow: hidden;
+  }
+  .order-section::before {
+    content: 'ORDER';
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    font-family: 'Bebas Neue', cursive;
+    font-size: 22rem; color: rgba(0,0,0,0.12);
+    pointer-events: none; white-space: nowrap; line-height: 1;
+  }
+  .order-section .section-label { color: rgba(255,255,255,0.7); position: relative; }
+  .order-section .section-title { color: var(--white); position: relative; font-size: clamp(3rem, 8vw, 5rem); }
+  .order-sub {
+    color: rgba(255,255,255,0.75);
+    font-size: 1rem; line-height: 1.7;
+    max-width: 480px; margin: 0 auto 2.5rem;
+    position: relative;
+  }
+  .order-contact {
+    display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap;
+    position: relative;
+  }
+  .contact-item {
+    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+  }
+  .contact-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+  }
+  .contact-value {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.4rem; letter-spacing: 2px;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .contact-value:hover { color: var(--black); }
+
+  /* FOOTER */
+  footer {
+    background: #060606;
+    padding: 2rem 4%;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+    gap: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.5rem; letter-spacing: 3px; color: var(--red);
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-copy {
+    font-size: 0.75rem; color: rgba(255,255,255,0.3);
+    font-family: 'Oswald', sans-serif; letter-spacing: 1px;
+  }
+  .footer-links {
+    display: flex; gap: 1.5rem; list-style: none;
+  }
+  .footer-links a {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 0.8; transform: scaleY(1.2); }
+  }
+
+  /* REVEAL ON SCROLL */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1; transform: none;
+  }
+
+  /* MOBILE */
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .stats-strip { gap: 1.5rem; }
+    .stat-div { display: none; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .order-section::before { font-size: 8rem; }
+  }
+
+  /* FLOATING CALL BUTTON */
+  .floating-call {
+    position: fixed; bottom: 2rem; left: 2rem; z-index: 99;
+    background: var(--gold); color: var(--black);
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+    border: none; padding: 0.8rem 1.4rem; cursor: pointer;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    text-decoration: none; display: flex; align-items: center; gap: 0.4rem;
+    box-shadow: 0 4px 20px rgba(245,166,35,0.3);
+    transition: transform 0.2s;
+    animation: fadeUp 1s 1s ease both;
+  }
+  .floating-call:hover { transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">BUNZO<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#menu">القائمة</a></li>
+    <li><a href="#extras">الإضافات</a></li>
+    <li><a href="#why">لماذا نحن</a></li>
+    <li><a href="#order">اطلب الآن</a></li>
+  </ul>
+  <a href="tel:01034452184" class="nav-order-btn">📞 اطلب الآن</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">البرج العرب الجديد · الإسكندرية</div>
+  <h1 class="hero-title">BUNZO<br><span class="red">BURGER</span></h1>
+  <p class="hero-tagline">Smash It · <span>Taste It</span> · Love It</p>
+  <div class="hero-cta">
+    <a href="tel:01034452184" class="btn-primary">📞 اطلب الآن</a>
+    <a href="#menu" class="btn-outline">استعرض القائمة</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>اكتشف</span>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <div>
+      <div class="stat-num">4+</div>
+      <div class="stat-label">سماش برجر</div>
+    </div>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <div>
+      <div class="stat-num">3</div>
+      <div class="stat-label">لودد فرايز</div>
+    </div>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <div>
+      <div class="stat-num">100%</div>
+      <div class="stat-label">لحم طازج</div>
+    </div>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <div>
+      <div class="stat-num">110 ج</div>
+      <div class="stat-label">ابتداءً من</div>
+    </div>
+  </div>
+</div>
+
+<!-- MENU SECTION -->
+<section class="menu-section" id="menu">
+  <div class="menu-header reveal">
+    <div class="section-label">القائمة الكاملة</div>
+    <h2 class="section-title">اختار أكلتك<br><span style="color:var(--red)">المفضلة</span></h2>
+    <p>كل صنف بيتعمل بـ Smash technique بيضمن طعم لا يُقاوَم — قشرة خارجية كرانشية وجوا نضارة وعصارة.</p>
+  </div>
+
+  <div class="menu-tabs reveal">
+    <button class="tab-btn active" onclick="filterMenu('smash')">🍔 سمـاش برجـر</button>
+    <button class="tab-btn" onclick="filterMenu('zinger')">🍗 زنجـر</button>
+    <button class="tab-btn" onclick="filterMenu('fries')">🍟 لـودد فرايـز</button>
+    <button class="tab-btn" onclick="filterMenu('all')">الكـل</button>
+  </div>
+
+  <div class="menu-grid reveal">
+
+    <!-- SMASH -->
+    <div class="menu-card visible" data-cat="smash">
+      <div class="menu-badge">الأكثر طلبًا</div>
+      <div class="menu-card-top">
+        <div class="menu-card-name">Bunzo Smokey</div>
+        <div class="menu-card-price">120 <span>ج</span></div>
+      </div>
+      <div class="menu-card-desc">برجر مشوي مع صوص باربكيو غني، جبنة سايحة وطعم مدخن لا يُقاوَم</div>
+    </div>
+
+    <div class="menu-card visible" data-cat="smash">
+      <div class="menu-card-top">
+        <div class="menu-card-name">Bunzo Thousand Island</div>
+        <div class="menu-card-price">125 <span>ج</span></div>
+      </div>
+      <div class="menu-card-desc">برجر لحم طازة مع جبنة أمريكان سايحة وخضار فريش وصوص الآيلاند المميز في كل قضمة</div>
+    </div>
+
+    <div class="menu-card visible" data-cat="smash">
+      <div class="menu-card-top">
+        <div class="menu-card-name">Bunzo Caramelized Onions</div>
+        <div class="menu-card-price">135 <span>ج</span></div>
+      </div>
+      <div class="menu-card-desc">برجر لحم مع بصل مكرمل وصوص كريمي يديك توازن مثالي بين الحلو والمالح</div>
+    </div>
+
+    <div class="menu-card visible" data-cat="smash">
+      <div class="menu-badge" style="background:var(--gold);color:var(--black)">كلاسيك</div>
+      <div class="menu-card-top">
+        <div class="menu-card-name">Bunzo Classic</div>
+        <div class="menu-card-price">110 <span>ج</span></div>
+      </div>
+      <div class="menu-card-desc">برجر تقليدي بطعم أصلي مع جبنة، كاتشب، مستردة وخضار فريش</div>
+    </div>
+
+    <!-- ZINGER -->
+    <div class="menu-card visible" data-cat="zinger">
+      <div class="menu-badge">فراخ تركي</div>
+      <div class="menu-card-top">
+        <div class="menu-card-name">Bunzo Zinger Madness</div>
+        <div class="menu-card-price">150 <span>ج</span></div>
+      </div>
+      <div class="menu-card-desc">فراخ كريسبي مع جبنة سايحة وصوص باربكيو وفراخ تركي مدخن بطعم غني ومميز</div>
+    </div>
+
+    <!-- FRIES -->
+    <div class="menu-card visible" data-cat="fries">
+      <div class="menu-card-top">
+        <div class="menu-card-name">Burger Loaded Fries</div>
+        <div class="menu-card-price">95 <span>ج</span></div>
+      </div>
+      <div class="menu-card-desc">بطاطس مقلية مقرمشة متغطية بلحم طازة، جبنة سايحة وصوصات غنية</div>
+    </div>
+
+    <div class="menu-card visible" data-cat="fries">
+      <div class="menu-card-top">
+        <div class="menu-card-name">Zinger Loaded Fries</div>
+        <div class="menu-card-price">105 <span>ج</span></div>
+      </div>
+      <div class="menu-card-desc">بطاطس مقرمشة مع قطع زنجر كريسبي، جبنة وصوص بونزو المميز</div>
+    </div>
+
+    <div class="menu-card visible" data-cat="fries">
+      <div class="menu-card-top">
+        <div class="menu-card-name">Caramelized Onions Loaded Fries</div>
+        <div class="menu-card-price">75 <span>ج</span></div>
+      </div>
+      <div class="menu-card-desc">بطاطس مقلية مع بصل مكرمل، جبنة سايحة وصوص كريمي لذيذ</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXTRAS -->
+<section class="extras-section" id="extras">
+  <div class="reveal">
+    <div class="section-label">الإضافات</div>
+    <h2 class="section-title">خلّي وجبتك<br><span style="color:var(--gold)">أكتر من كده</span></h2>
+  </div>
+  <div class="extras-grid reveal">
+    <div class="extra-card">
+      <div class="extra-icon">🥩</div>
+      <div class="extra-name">قطعة برجر</div>
+      <div class="extra-price">50 ج</div>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">🍟</div>
+      <div class="extra-name">بطاطس</div>
+      <div class="extra-price">30 ج</div>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">🌶️</div>
+      <div class="extra-name">هالوبينو</div>
+      <div class="extra-price">10 ج</div>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">🧀</div>
+      <div class="extra-name">جبنة أمريكان</div>
+      <div class="extra-price">30 ج</div>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">🍅</div>
+      <div class="extra-name">كاتشب</div>
+      <div class="extra-price">15 ج</div>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">🫙</div>
+      <div class="extra-name">صوص جبنة</div>
+      <div class="extra-price">30 ج</div>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">🥗</div>
+      <div class="extra-name">صوص ديدي آيلاند</div>
+      <div class="extra-price">25 ج</div>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">🤍</div>
+      <div class="extra-name">صوص أبيض</div>
+      <div class="extra-price">25 ج</div>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">🔥</div>
+      <div class="extra-name">باربيكيو</div>
+      <div class="extra-price">25 ج</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY BUNZO -->
+<section class="why-section" id="why">
+  <div class="reveal">
+    <div class="section-label">لماذا بونزو</div>
+    <h2 class="section-title">مش مجرد<br><span style="color:var(--red)">برجر عادي</span></h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-icon">🔥</div>
+      <div class="feature-title">Smash Technique</div>
+      <div class="feature-desc">بنعمل الـ Smash صح عشان تاخد قشرة كرانشية من برا وعصارة من جوا في كل قضمة</div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🥩</div>
+      <div class="feature-title">لحم 100% طازج</div>
+      <div class="feature-desc">بنستخدم أجود أنواع اللحم الطازج اللي بيتحضر يومي عشان تحس بالفرق في كل وجبة</div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🧀</div>
+      <div class="feature-title">صوصات محلية</div>
+      <div class="feature-desc">كل الصوصات بتتعمل عندنا بوصفات خاصة — من الباربكيو للكريمي للألف جزيرة</div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">📍</div>
+      <div class="feature-title">في قلب المنطقة</div>
+      <div class="feature-desc">في Downtown البرج العرب الجديد — قريب منك وجاهز يوصلك أسرع ما يكون</div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER CTA -->
+<section class="order-section" id="order">
+  <div class="section-label">اطلب دلوقتي</div>
+  <h2 class="section-title">جاهزين لك<br>على طول</h2>
+  <p class="order-sub">اتصل بينا دلوقتي وهنوصلك وجبتك الـ Smash في أسرع وقت — طازجة وساخنة باب باب</p>
+  <div class="order-contact">
+    <div class="contact-item">
+      <span class="contact-label">📞 رقم الطلبات</span>
+      <a href="tel:01034452184" class="contact-value">010 3445 2184</a>
+    </div>
+    <div style="width:1px;height:50px;background:rgba(255,255,255,0.3)"></div>
+    <div class="contact-item">
+      <span class="contact-label">📍 موقعنا</span>
+      <span class="contact-value">Downtown, Borg El Arab</span>
+    </div>
+  </div>
+  <div style="margin-top:2.5rem; position:relative;">
+    <a href="tel:01034452184" class="btn-outline" style="border-color:rgba(255,255,255,0.5);color:var(--white);font-size:1rem;padding:1.1rem 3rem;">
+      📞 اتصل الآن
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">BUNZO<span>.</span></div>
+  <ul class="footer-links">
+    <li><a href="#menu">القائمة</a></li>
+    <li><a href="#order">اتصل بنا</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Bunzo Burger · البرج العرب</div>
+</footer>
+
+<!-- FLOATING CALL BTN -->
+<a href="tel:01034452184" class="floating-call">📞 اطلب الآن</a>
+
+<script>
+function filterMenu(cat) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  document.querySelectorAll('.menu-card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.classList.add('visible');
+    } else {
+      card.classList.remove('visible');
+    }
+  });
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
